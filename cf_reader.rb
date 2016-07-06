@@ -302,6 +302,7 @@ def read_indication_extended(f)
   if marker[0] == 'E' and marker[1] == 'I'
     log "Reading extended indication fields..."
     {
+      :amplitude_filename => read_string(f),
       :maximum_cw_amplitude => read_float(f),
       :maximum_ccw_amplitude => read_float(f),
       :maximum_fwd_amplitude => read_float(f),
@@ -368,6 +369,9 @@ def read_indication(f)
     :maximum_depth_us_to_mm_conversion_description => read_string(f),
     :wall_thickness_us_to_mm_conversion_description => read_string(f),
     :comments => read_string(f),
+    :sizing_filename => read_string(f),
+    :wall_thickness_filename => read_string(f),
+    :maximum_depth_filename => read_string(f),
     :type => read_long(f),
     :location => read_long(f),
     :reportable_element_ids => read_element_ids(f),
