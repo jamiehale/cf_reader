@@ -35,7 +35,24 @@ def read_string(f)
   f.read(read_long(f))
 end
 
+def read_bytes(f, n)
+  bytes = []
+  n.times do
+    bytes << read_byte(f)
+  end
+  bytes
+end
+
+def read_floats(f, n)
+  floats = []
+  n.times do
+    floats << read_float(f)
+  end
+  floats
+end
+
 def read_header(f)
+  log "Reading header..."
   {
     :generating_station => read_byte(f),
     :unit_number => read_byte(f),
@@ -53,14 +70,6 @@ def read_header(f)
   }
 end
 
-def read_bytes(f, n)
-  bytes = []
-  n.times do
-    bytes << read_byte(f)
-  end
-  bytes
-end
-
 def read_calibration_entry(f)
   log "Reading calibration entry..."
   {
@@ -68,8 +77,8 @@ def read_calibration_entry(f)
     :filename => read_string(f),
     :levels => read_bytes(f, 14),
     :raw_levels => read_bytes(f, 14),
-    :hardware_gains => read_bytes(f, 14),
-    :software_gains => read_bytes(f, 14),
+    :hardware_gains => read_floats(f, 12),
+    :software_gains => read_floats(f, 20),
     :description => read_string(f)
   }
 end
